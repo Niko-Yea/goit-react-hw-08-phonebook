@@ -1,0 +1,30 @@
+h2 {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 93.4vh;
+  text-align: center;
+  background-image: linear-gradient(
+      to right,
+      rgba(8, 8, 8, 0.9),
+      rgba(8, 8, 8, 0.9)
+    ),
+    url("./bgi.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 64px;
+  flex-direction: column;
+  align-items: center;
+}
