@@ -8,15 +8,15 @@ import { BrowserRouter } from 'react-router-dom';
 import 'normalize.css'
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <Phonebook />
         </BrowserRouter>
       </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

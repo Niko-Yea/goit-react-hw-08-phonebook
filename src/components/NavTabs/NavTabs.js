@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 import { useLogOutUserMutation } from '../../redux/auth/authApi';
 import { logout } from '../../redux/auth/authSlice';
 
-// import './styles.scss'
-
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import { NavLink } from 'react-router-dom';
@@ -84,7 +82,7 @@ export default function SimpleTabs() {
                 color='secondary'
                 className={classes.btn}
               >
-                Welcome, {userName}
+                {userName}
               </Typography>
               <Button
                 color='primary'

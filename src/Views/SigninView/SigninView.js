@@ -15,6 +15,28 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
+
+  input: {
+    '& .MuiFormLabel-root': {
+      color: '#8eacbb'
+    },
+    '& .MuiInputBase-root': {
+      color: '#607d8b'
+    },
+    '& .MuiInput-underline:before': {
+      borderBottom: '1px solid #8eacbb'
+    },
+    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+      borderBottom: '2px solid #34515e',
+    },
+  },
+  linl: {
+    textDecoration: 'none',
+    color: theme.palette.primary.dark,
+    '&:hover': {
+      color: theme.palette.primary.light,
+    }
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -32,10 +54,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-
-  title: {
-    color: 'rgb(222, 222, 222);'
-  }
 }));
 
 export default function SignIn() {
@@ -87,8 +105,9 @@ export default function SignIn() {
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
-            className='input'
-            variant="outlined"
+            color='secondary'
+            className={classes.input}
+            variant="standard"
             margin="normal"
             required
             fullWidth
@@ -100,7 +119,9 @@ export default function SignIn() {
             autoFocus
           />
           <TextField
-            variant="outlined"
+            className={classes.input}
+            color='secondary'
+            variant="standard"
             margin="normal"
             required
             fullWidth
@@ -124,7 +145,7 @@ export default function SignIn() {
             <Grid item xs>
             </Grid>
             <Grid item>
-              <Link to="/registration" >
+              <Link to="/registration" className={classes.linl}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

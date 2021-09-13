@@ -1,19 +1,60 @@
-import { useState, useEffect, useRef } from "react";
-import shortid from "shortid";
-import styles from './styles.module.scss';
+import { useState } from "react";
 import { useCreateContactMutation, useFetchContactsQuery } from "../../redux/contacts/phonebookApi";
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, TextField, Dialog, Typography } from "@material-ui/core";
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+const useStyles = makeStyles((theme) => ({
+
+  input: {
+    '& .MuiFormLabel-root': {
+      color: '#8eacbb'
+    },
+    '& .MuiInputBase-root': {
+      color: '#607d8b'
+    },
+    '& .MuiInput-underline:before': {
+      borderBottom: '1px solid #8eacbb'
+    },
+    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+      borderBottom: '2px solid #34515e',
+    },
+  },
+  linl: {
+    textDecoration: 'none',
+    color: theme.palette.primary.dark,
+    '&:hover': {
+      color: theme.palette.primary.light,
+    }
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [createContact] = useCreateContactMutation();
   const { data: contacts } = useFetchContactsQuery();
-
-  const mainInput = useRef(null);
-
-  useEffect(() => {
-    mainInput.current.focus()
-  }, [])
+  const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,8 +84,8 @@ function ContactForm() {
     }
 
     resetState();
-    mainInput.current.focus()
     await createContact({ name, number });
+    setOpen(false)
   }
 
   const resetState = () => {
@@ -52,40 +93,81 @@ function ContactForm() {
     setNumber('');
   }
 
-  const nameInputId = shortid.generate();
-  const numberInputId = shortid.generate();
+
+  const hanleOpenModal = () => {
+    setOpen(true)
+  }
+  const hanleCloseModal = () => {
+    setOpen(false)
+  }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <label className={styles.label} htmlFor={nameInputId}>
-        Name
-        <input
-          ref={mainInput}
-          onChange={handleInputChange}
-          value={name}
-          id={nameInputId}
-          type="text"
-          name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-          required
-        />
-      </label>
-      <label className={styles.label} htmlFor={numberInputId}>
-        Number
-        <input
-          onChange={handleInputChange}
-          value={number}
-          id={numberInputId}
-          type="tel"
-          name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-          required
-        />
-      </label>
-      <button className={styles.button} type="submit">Add contact</button>
-    </form>
+    <>
+      <Button
+        type='button'
+        onClick={hanleOpenModal}
+        color='secondary'
+        variant='contained'
+      >
+        Add new contact
+      </Button>
+      <Dialog
+        open={open}
+        onClose={hanleCloseModal}
+        PaperProps={{
+          style: {
+            backgroundColor: '#494949'
+          }
+        }}
+      >
+        <DialogTitle>
+          <Typography
+            color='secondary'
+            variant='body1'
+          >
+            Add new contact
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            helperText="Incorrect entry."
+            color='secondary'
+            className={classes.input}
+            variant='standard'
+            margin="normal"
+            required
+            fullWidth
+            id="name"
+            label="Name"
+            name="name"
+            onChange={handleInputChange}
+            autoFocus
+          />
+          <TextField
+            className={classes.input}
+            color='secondary'
+            variant="standard"
+            margin="normal"
+            required
+            fullWidth
+            name="number"
+            label="Number"
+            type='tel'
+            id="number"
+            onChange={handleInputChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={hanleCloseModal} color='primary' variant='contained'>
+            Cancel
+          </Button>
+          <Button onClick={handleSubmit} color='primary' variant='contained'>
+            Add contact
+          </Button>
+        </DialogActions>
+
+      </Dialog>
+    </>
   );
 };
 

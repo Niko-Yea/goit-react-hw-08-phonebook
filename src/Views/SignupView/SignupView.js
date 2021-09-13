@@ -16,6 +16,27 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
+  input: {
+    '& .MuiFormLabel-root': {
+      color: '#8eacbb'
+    },
+    '& .MuiInputBase-root': {
+      color: '#607d8b'
+    },
+    '& .MuiInput-underline:before': {
+      borderBottom: '1px solid #8eacbb'
+    },
+    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+      borderBottom: '2px solid #34515e',
+    },
+  },
+  linl: {
+    textDecoration: 'none',
+    color: theme.palette.primary.dark,
+    '&:hover': {
+      color: theme.palette.primary.light,
+    },
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -85,16 +106,18 @@ export default function SignUp() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" color='primary'>
           Sign up
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
+                className={classes.input}
+                color='secondary'
                 autoComplete="fname"
                 name="name"
-                variant="outlined"
+                variant="standard"
                 required
                 fullWidth
                 id="name"
@@ -105,7 +128,9 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                className={classes.input}
+                color='secondary'
+                variant="standard"
                 required
                 fullWidth
                 id="email"
@@ -117,7 +142,9 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                variant="outlined"
+                className={classes.input}
+                color='secondary'
+                variant="standard"
                 required
                 fullWidth
                 name="password"
@@ -142,7 +169,7 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link to="signin" >
+              <Link to="login" className={classes.linl}>
                 Already have an account? Sign in
               </Link>
             </Grid>

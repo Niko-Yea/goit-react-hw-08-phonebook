@@ -6,13 +6,13 @@ import { useGetCurrentUserQuery } from './redux/auth/authApi';
 import authSelectors from './redux/auth/authSelectors';
 
 import Layout from './components/Layout/Layout';
-import HomePageView from './components/HomePage/HomePageView';
+import HomePageView from './Views/HomePage/HomePageView';
 import NavTabs from './components/NavTabs/NavTabs';
 import PrivateRouter from './components/Routers/PrivateRouter';
 import PubliRouter from './components/Routers/PublicRouter';
-import SigninView from './components/SigninView/SigninView';
-import SignupView from './components/SignupView/SignupView'
-import ContactsView from './components/ContactsView/ContactsView';
+import SigninView from './Views/SigninView/SigninView';
+import SignupView from './Views/SignupView/SignupView'
+import ContactsView from './Views/ContactsView/ContactsView';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 
 import { createTheme, ThemeProvider } from '@material-ui/core'
