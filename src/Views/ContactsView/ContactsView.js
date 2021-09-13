@@ -5,6 +5,7 @@ import { useGetCurrentUserQuery } from '../../redux/auth/authApi';
 import { Box, CircularProgress, Container, makeStyles, Typography } from '@material-ui/core';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import ContactsLibrary from '../../components/ContactsLibrary/ContactsLibrary';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 
 const useStyles = makeStyles({
   title: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
 const ContactsView = () => {
   const classes = useStyles();
   const userName = useSelector(authSelectors.getUserName);
-  const { isFetching } = useGetCurrentUserQuery();
+  const { isFetching } = useGetCurrentUserQuery(skipToken);
 
   return (
     !isFetching

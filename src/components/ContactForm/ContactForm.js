@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
 
   input: {
     '& .MuiFormLabel-root': {
-      color: '#8eacbb'
+      color: '#8eacbb',
+      '&.MuiFormLabel-root.Mui-error': {
+        color: '#f44336',
+      },
     },
     '& .MuiInputBase-root': {
       color: '#607d8b'
@@ -21,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
       borderBottom: '2px solid #34515e',
     },
+    '& .MuiInputBase-input:invalid': {
+      border: 'red'
+    }
   },
   linl: {
     textDecoration: 'none',
@@ -93,7 +99,6 @@ function ContactForm() {
     setNumber('');
   }
 
-
   const hanleOpenModal = () => {
     setOpen(true)
   }
@@ -130,7 +135,6 @@ function ContactForm() {
         </DialogTitle>
         <DialogContent>
           <TextField
-            helperText="Incorrect entry."
             color='secondary'
             className={classes.input}
             variant='standard'
@@ -144,6 +148,9 @@ function ContactForm() {
             autoFocus
           />
           <TextField
+            inputProps={{
+              
+            }}
             className={classes.input}
             color='secondary'
             variant="standard"
@@ -158,11 +165,11 @@ function ContactForm() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={hanleCloseModal} color='primary' variant='contained'>
-            Cancel
-          </Button>
           <Button onClick={handleSubmit} color='primary' variant='contained'>
             Add contact
+          </Button>
+          <Button onClick={hanleCloseModal} color='primary' variant='contained'>
+            Cancel
           </Button>
         </DialogActions>
 
