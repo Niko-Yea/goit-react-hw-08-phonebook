@@ -1,30 +1,29 @@
-import React from 'react';
-import { useSiginUserMutation } from '../../redux/auth/authApi';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/auth/authSlice';
-import { Link } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React from 'react'
+import { useSiginUserMutation } from '../../redux/auth/authApi'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { login } from '../../redux/auth/authSlice'
+import { Link } from 'react-router-dom'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 
-const useStyles = makeStyles((theme) => ({
-
+const useStyles = makeStyles(theme => ({
   input: {
     '& .MuiFormLabel-root': {
-      color: '#8eacbb'
+      color: '#8eacbb',
     },
     '& .MuiInputBase-root': {
-      color: '#607d8b'
+      color: '#607d8b',
     },
     '& .MuiInput-underline:before': {
-      borderBottom: '1px solid #8eacbb'
+      borderBottom: '1px solid #8eacbb',
     },
     '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
       borderBottom: '2px solid #34515e',
@@ -35,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.dark,
     '&:hover': {
       color: theme.palette.primary.light,
-    }
+    },
   },
   paper: {
     marginTop: theme.spacing(8),
@@ -54,17 +53,17 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export default function SignIn() {
-  const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const [signinUser] = useSiginUserMutation();
+  const classes = useStyles()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+  const [signinUser] = useSiginUserMutation()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault()
 
     try {
       const loginResponse = await signinUser({ email, password })
@@ -76,20 +75,20 @@ export default function SignIn() {
     }
   }
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = e => {
+    const { name, value } = e.target
 
     switch (name) {
       case 'email':
         setEmail(value)
-        break;
-      
+        break
+
       case 'password':
         setPassword(value)
-        break;
+        break
 
       default:
-        return;
+        return
     }
   }
 
@@ -100,12 +99,12 @@ export default function SignIn() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" color='primary'>
+        <Typography component="h1" variant="h5" color="primary">
           Sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
-            color='secondary'
+            color="secondary"
             className={classes.input}
             variant="standard"
             margin="normal"
@@ -120,7 +119,7 @@ export default function SignIn() {
           />
           <TextField
             className={classes.input}
-            color='secondary'
+            color="secondary"
             variant="standard"
             margin="normal"
             required
@@ -142,8 +141,7 @@ export default function SignIn() {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-            </Grid>
+            <Grid item xs></Grid>
             <Grid item>
               <Link to="/registration" className={classes.linl}>
                 {"Don't have an account? Sign Up"}
@@ -153,5 +151,5 @@ export default function SignIn() {
         </form>
       </div>
     </Container>
-  );
+  )
 }

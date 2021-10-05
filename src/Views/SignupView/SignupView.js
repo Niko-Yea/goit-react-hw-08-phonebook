@@ -1,30 +1,30 @@
-import React from 'react';
-import { useState } from 'react';
-import { useCreateNewUserMutation } from '../../redux/auth/authApi';
-import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/authSlice';
+import React from 'react'
+import { useState } from 'react'
+import { useCreateNewUserMutation } from '../../redux/auth/authApi'
+import { useDispatch } from 'react-redux'
+import { register } from '../../redux/auth/authSlice'
 
-import { Link } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import { Link } from 'react-router-dom'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   input: {
     '& .MuiFormLabel-root': {
-      color: '#8eacbb'
+      color: '#8eacbb',
     },
     '& .MuiInputBase-root': {
-      color: '#607d8b'
+      color: '#607d8b',
     },
     '& .MuiInput-underline:before': {
-      borderBottom: '1px solid #8eacbb'
+      borderBottom: '1px solid #8eacbb',
     },
     '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
       borderBottom: '2px solid #34515e',
@@ -54,48 +54,49 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export default function SignUp() {
-  const classes = useStyles();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-  const [createNewUser] = useCreateNewUserMutation();
+  const classes = useStyles()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+  const [createNewUser] = useCreateNewUserMutation()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault()
 
     try {
-      const registrationResponse = await createNewUser({ name, email, password });
+      const registrationResponse = await createNewUser({
+        name,
+        email,
+        password,
+      })
       if (registrationResponse.data) {
         dispatch(register(registrationResponse.data))
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = e => {
+    const { name, value } = e.target
 
     switch (name) {
       case 'name':
         setName(value)
-        break;
+        break
 
       case 'email':
         setEmail(value)
-        break;
-      
+        break
+
       case 'password':
         setPassword(value)
-        break;
+        break
 
       default:
-        return;
+        return
     }
   }
 
@@ -106,7 +107,7 @@ export default function SignUp() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5" color='primary'>
+        <Typography component="h1" variant="h5" color="primary">
           Sign up
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -114,7 +115,7 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 className={classes.input}
-                color='secondary'
+                color="secondary"
                 autoComplete="fname"
                 name="name"
                 variant="standard"
@@ -129,7 +130,7 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 className={classes.input}
-                color='secondary'
+                color="secondary"
                 variant="standard"
                 required
                 fullWidth
@@ -143,7 +144,7 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 className={classes.input}
-                color='secondary'
+                color="secondary"
                 variant="standard"
                 required
                 fullWidth
@@ -155,8 +156,7 @@ export default function SignUp() {
                 onChange={handleInputChange}
               />
             </Grid>
-            <Grid item xs={12}>
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
           <Button
             type="submit"
@@ -177,5 +177,5 @@ export default function SignUp() {
         </form>
       </div>
     </Container>
-  );
+  )
 }
